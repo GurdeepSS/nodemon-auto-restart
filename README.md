@@ -62,7 +62,7 @@ app.use('/', (req, res) => {
 });
 ```
 
-Use `Command + C` in mac or `Ctrl + C` in windows to stop the currently running server and restart it by using the same command before: `npm run start`.
+Use `Ctrl + C` to stop the currently running server and restart it by using the same command before: `npm run start`.
 
 Using the curl command again from terminal window we get the desired result:
 
@@ -79,3 +79,68 @@ Add nodemon as `devDependency`:
 ```shell
 $ npm i -D nodemon
 ```
+
+```json
+{
+  "name": "nodemon-auto-restart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "Aman Mittal <amandeepmittal@live.com> (http://amandeepmittal.github.io/)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.15.3"
+  },
+  "devDependencies": {
+    "nodemon": "1.11.0"
+  }
+}
+```
+
+## Step 4
+Make another script `dev` under npm scripts in `package.json` file:
+
+```json
+{
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon --watch src src/index.js"
+  }
+}
+```
+
+Now run `$ npm run dev` and request using curl command, we will see the last familiar result:
+
+```shell
+curl -X GET http://localhost:3000/
+Lorem Ipsum
+```
+
+If I change the response message in `index.js` file back to `Hello World`, this time I don't I have to restart the server since `nodemon` is watching for the changes using inside the src directory, through its `--watch `parameter. If I use the curl command again, the result is familiar with the update
+
+```shell
+curl -X GET http://localhost:3000/
+Hello World
+```
+
+One can verify by observing the log messages in the terminal window where nodemon is running:
+
+```shell
+$ npm run dev
+
+> nodemon-auto-restart@1.0.0 dev /Users/amandeepmittal/github/nodemon-auto-restart
+> nodemon --watch src src/index.js
+
+[nodemon] 1.11.0
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching: /Users/amandeepmittal/github/nodemon-auto-restart/src/**/*
+[nodemon] starting `node src/index.js`
+[nodemon] restarting due to changes...
+[nodemon] starting `node src/index.js`
+```
+
+To stop the nodemon process, use  `Ctrl + C`.
