@@ -1,5 +1,7 @@
 # nodemon-auto-restart
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/amandeepmittal/nodemon-auto-restart.svg)](https://greenkeeper.io/)
+
 ![](http://nodemon.io/nodemon.svg)
 
 Manually restarting Node.js application is a tiring and tedious job. [Nodemon](https://www.npmjs.com/package/nodemon) is the best solution available to autorestart a nodejs app server in development mode.
